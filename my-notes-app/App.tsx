@@ -1,9 +1,15 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
   const [input, setInput] = useState<string>("");
+  const saveNote = async () => {
+    await AsyncStorage.setItem("note", input);
+    console.log("saved to asyncstorage");
+  };
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
@@ -17,7 +23,7 @@ export default function App() {
       <Button
         title="save"
         onPress={() => {
-          console.log("Note is saved", input);
+          saveNote();
         }}
       ></Button>
     </View>
