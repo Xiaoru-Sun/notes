@@ -1,15 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 
-type Props = {
-  setAddNotesVisible: (value: boolean) => void;
-};
-export const Home = ({ setAddNotesVisible }: Props): JSX.Element => {
+export const Home = (): JSX.Element => {
   return (
     <View>
-      <Text style={styles.home}>Home</Text>
-      <Pressable style={styles.button} onPress={() => setAddNotesVisible(true)}>
-        <Text style={styles.save}>Save</Text>
+      <Text style={styles.home}>Home Screen</Text>
+      <Pressable style={styles.button} onPress={() => }>
+        <Text style={styles.save}>New Note</Text>
       </Pressable>
     </View>
   );
