@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { AddNotes } from "./components/AddNotes";
+import { Home } from "./components/Home";
 import { useState } from "react";
 
 export default function App() {
@@ -13,18 +14,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
       {addNotesVisible ? (
         <AddNotes saveNote={saveNote}></AddNotes>
       ) : (
-        <>
-          <Text>Home</Text>
-          <Button
-            title="New Note"
-            onPress={() => setAddNotesVisible(true)}
-          ></Button>
-        </>
+        <Home setAddNotesVisible={setAddNotesVisible}></Home>
       )}
     </View>
   );
