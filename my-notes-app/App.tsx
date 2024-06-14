@@ -1,31 +1,31 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { AddNotes } from "./components/AddNotes";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
-  const [input, setInput] = useState<string>("");
-  const saveNote = async () => {
+  const [addNotesVisible, setAddNotesVisible] = useState<boolean>(false);
+  const saveNote = async (input: string) => {
     await AsyncStorage.setItem("note", input);
-    console.log("saved to asyncstorage");
+    setAddNotesVisible(false);
   };
 
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
-      <TextInput
-        multiline={true}
-        style={styles.textInput}
-        value={input}
-        onChangeText={setInput}
-      ></TextInput>
-      <Button
-        title="save"
-        onPress={() => {
-          saveNote();
-        }}
-      ></Button>
+      {addNotesVisible ? (
+        <AddNotes saveNote={saveNote}></AddNotes>
+      ) : (
+        <>
+          <Text>Home</Text>
+          <Button
+            title="New Note"
+            onPress={() => setAddNotesVisible(true)}
+          ></Button>
+        </>
+      )}
     </View>
   );
 }
@@ -36,14 +36,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  textInput: {
-    backgroundColor: "lightgrey",
-    width: "100%",
-    height: 200,
-    fontSize: 18,
-    paddingTop: 30,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
   },
 });
