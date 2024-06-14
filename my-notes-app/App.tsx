@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { AddNotes } from "./components/AddNotes";
 import { Home } from "./components/Home";
 import { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const [addNotesVisible, setAddNotesVisible] = useState<boolean>(false);
@@ -13,14 +14,16 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      {addNotesVisible ? (
-        <AddNotes saveNote={saveNote}></AddNotes>
-      ) : (
-        <Home setAddNotesVisible={setAddNotesVisible}></Home>
-      )}
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        {addNotesVisible ? (
+          <AddNotes saveNote={saveNote}></AddNotes>
+        ) : (
+          <Home setAddNotesVisible={setAddNotesVisible}></Home>
+        )}
+      </View>
+    </NavigationContainer>
   );
 }
 
