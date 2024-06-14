@@ -1,11 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const Home = (): JSX.Element => {
+  const navigation = useNavigation();
+
   return (
     <View>
       <Text style={styles.home}>Home Screen</Text>
-      <Pressable style={styles.button} onPress={() => }>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate("Notes")}
+      >
         <Text style={styles.save}>New Note</Text>
       </Pressable>
     </View>
