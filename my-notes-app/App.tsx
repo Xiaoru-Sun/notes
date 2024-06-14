@@ -1,28 +1,20 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { AddNotes } from "./components/AddNotes";
+import { StyleSheet } from "react-native";
 import { Home } from "./components/Home";
-import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { CreateNotes } from "./components/CreateNotes";
 
 export default function App() {
-  const [addNotesVisible, setAddNotesVisible] = useState<boolean>(false);
-  const saveNote = async (input: string) => {
-    await AsyncStorage.setItem("note", input);
-    setAddNotesVisible(false);
-  };
+  const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        {addNotesVisible ? (
-          <AddNotes saveNote={saveNote}></AddNotes>
-        ) : (
-          <Home setAddNotesVisible={setAddNotesVisible}></Home>
-        )}
-      </View>
+      <StatusBar style="auto" />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
+        <Stack.Screen name="Notes" component={CreateNotes}></Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
@@ -30,7 +22,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
