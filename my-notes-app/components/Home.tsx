@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { ScreenNavigationProp } from "../types";
 
 export const Home = (): JSX.Element => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <View>
