@@ -7,3 +7,12 @@ export const getNote = async () => {
 export const saveNote = async (input: string) => {
   await AsyncStorage.setItem("note", input);
 };
+
+export type Note = {
+  text: string;
+  id: string;
+};
+
+export type NoteStore = {
+  notes: Array<Note>;
+};
