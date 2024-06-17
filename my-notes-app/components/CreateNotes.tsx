@@ -8,7 +8,7 @@ export const CreateNotes = () => {
   const saveNote = async (input: string) => {
     await AsyncStorage.setItem("note", input);
   };
-  const [input, setInput] = useState<string>("");
+
   return (
     <>
       <EditNotes saveNote={saveNote} />
