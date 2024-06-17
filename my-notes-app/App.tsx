@@ -4,9 +4,10 @@ import { Home } from "./components/Home";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CreateNotes } from "./components/CreateNotes";
+import { RootStackParamsList } from "./types";
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamsList>();
 
   return (
     <NavigationContainer>
