@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { ScreenNavigationProp } from "../types";
-import { getNote } from "../services/noteServices";
+import { NotesList } from "./NotesList";
 
 export const Home = (): JSX.Element => {
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const [noteList, setNoteList] = useState<any | null>("");
-
-  useFocusEffect(() => {
-    getNote().then((result) => setNoteList(result));
-  });
-
   return (
     <View>
-      <Text style={styles.home}>Home Screen</Text>
-      <Text>{noteList}</Text>
+      <NotesList></NotesList>
       <Pressable
         style={styles.button}
         onPress={() => navigation.navigate("Notes")}
