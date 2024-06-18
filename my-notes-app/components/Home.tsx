@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { ScreenNavigationProp } from "../types";
-import { getAllNotes } from "../services/noteServices";
+import { Note, getAllNotes } from "../services/noteServices";
 
 export const Home = (): JSX.Element => {
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const [noteList, setNoteList] = useState<any | null>([]);
+  const [noteList, setNoteList] = useState<Note[]>([]);
 
   useFocusEffect(() => {
     getAllNotes().then((result) => {
