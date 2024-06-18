@@ -15,6 +15,7 @@ export const EditNotes = ({ saveNote }: Props): JSX.Element => {
         style={styles.textInput}
         value={input}
         onChangeText={setInput}
+        autoFocus={true}
       ></TextInput>
       <Button
         title="Save"
