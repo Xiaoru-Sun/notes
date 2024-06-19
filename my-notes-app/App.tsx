@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CreateNotes } from "./components/CreateNotes";
 import { RootStackParamsList } from "./types";
+import { NewNoteButton } from "./components/NewNoteButton";
 
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamsList>();
@@ -12,9 +13,29 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Notes" component={CreateNotes}></Stack.Screen>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: { backgroundColor: "#f4500e" },
+          headerTintColor: "#fff",
+          headerTitleStyle: { fontWeight: "bold" },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "Home",
+            headerRight: () => <NewNoteButton></NewNoteButton>,
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Notes"
+          component={CreateNotes}
+          options={{
+            title: "Edit Note",
+          }}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
