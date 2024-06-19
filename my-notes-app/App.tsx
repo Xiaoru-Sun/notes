@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button } from "react-native";
 import { Home } from "./components/Home";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CreateNotes } from "./components/CreateNotes";
 import { RootStackParamsList } from "./types";
@@ -23,12 +23,24 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ title: "Home" }}
+          options={({ navigation }) => {
+            return {
+              title: "Home",
+              headerRight: () => (
+                <Button
+                  title="New Note"
+                  onPress={() => navigation.navigate("Notes")}
+                ></Button>
+              ),
+            };
+          }}
         ></Stack.Screen>
         <Stack.Screen
           name="Notes"
           component={CreateNotes}
-          options={{ title: "Edit Note" }}
+          options={{
+            title: "Edit Note",
+          }}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
