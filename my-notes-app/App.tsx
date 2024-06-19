@@ -13,8 +13,16 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Notes" component={CreateNotes}></Stack.Screen>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Home" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Notes"
+          component={CreateNotes}
+          options={{ title: "Edit Note" }}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
