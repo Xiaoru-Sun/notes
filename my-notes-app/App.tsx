@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { Home } from "./components/Home";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CreateNotes } from "./components/CreateNotes";
 import { RootStackParamsList } from "./types";
+import { NewNoteButton } from "./components/NewNoteButton";
 
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamsList>();
@@ -23,16 +24,9 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={({ navigation }) => {
-            return {
-              title: "Home",
-              headerRight: () => (
-                <Button
-                  title="New Note"
-                  onPress={() => navigation.navigate("Notes")}
-                ></Button>
-              ),
-            };
+          options={{
+            title: "Home",
+            headerRight: () => <NewNoteButton></NewNoteButton>,
           }}
         ></Stack.Screen>
         <Stack.Screen
