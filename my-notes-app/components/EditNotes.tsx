@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Button, TextInput } from "react-native";
 import { useState } from "react";
+import { getNoteById } from "../services/noteServices";
 
 type Props = {
   saveNote: (input: string) => void;
+  noteId: string | undefined;
 };
 
-export const EditNotes = ({ saveNote }: Props): JSX.Element => {
+export const EditNotes = ({ saveNote, noteId }: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
+  useEffect(() => {
+    if (noteId) {
+      getNoteById(noteId).then((result) => setInput(result?.text ?? ""));
+    }
+  }, []);
   return (
     <>
       <TextInput
