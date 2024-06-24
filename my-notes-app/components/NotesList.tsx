@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Note, getAllNotes } from "../services/noteServices";
 import { useFocusEffect } from "@react-navigation/native";
-import { View, Text, FlatList, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 export const NotesList = () => {
   const [noteList, setNoteList] = useState<Note[]>([]);
@@ -19,9 +25,15 @@ export const NotesList = () => {
       <ScrollView>
         {noteList.map((note, index) => (
           <View key={index} style={styles.row}>
-            <Text style={styles.noteText}>
-              {note.text.length === 0 ? "(Blank note)" : note.text}
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Clicked note");
+              }}
+            >
+              <Text style={styles.noteText}>
+                {note.text.length === 0 ? "(Blank note)" : note.text}
+              </Text>
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -41,5 +53,6 @@ const styles = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     justifyContent: "center",
+    backgroundColor: "smokewhite",
   },
 });
