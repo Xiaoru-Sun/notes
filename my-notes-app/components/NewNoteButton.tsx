@@ -7,7 +7,9 @@ import { ScreenNavigationProp } from "../types";
 export const NewNoteButton = () => {
   const navigation = useNavigation<ScreenNavigationProp>();
   return (
-    <Pressable onPress={() => navigation.navigate("Notes")}>
+    <Pressable
+      onPress={() => navigation.navigate("Notes", { noteId: undefined })}
+    >
       <FontAwesome name="pencil-square-o" size={28}></FontAwesome>
     </Pressable>
   );
