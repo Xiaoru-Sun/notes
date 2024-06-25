@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Note, getAllNotes } from "../services/noteServices";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { ScreenNavigationProp } from "../types";
 
 export const NotesList = () => {
   const [noteList, setNoteList] = useState<Note[]>([]);
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -24,17 +26,18 @@ export const NotesList = () => {
     <View>
       <ScrollView>
         {noteList.map((note, index) => (
-          <View key={index} style={styles.row}>
-            <TouchableOpacity
-              onPress={() => {
-                console.log("Clicked note");
-              }}
-            >
+          <TouchableOpacity
+            key={index}
+            onPress={() => {
+              navigation.navigate("Notes", { noteId: note.id });
+            }}
+          >
+            <View style={styles.row}>
               <Text style={styles.noteText}>
                 {note.text.length === 0 ? "(Blank note)" : note.text}
               </Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
