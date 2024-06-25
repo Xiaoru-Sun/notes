@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Button, TextInput } from "react-native";
 import { useState } from "react";
-import { getNoteById } from "../services/noteServices";
+import { getNoteById, saveNote } from "../services/noteServices";
 
 type Props = {
-  saveNote: (input: string) => void;
   noteId: string | undefined;
 };
 
-export const EditNotes = ({ saveNote, noteId }: Props): JSX.Element => {
+export const EditNotes = ({ noteId }: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
   useEffect(() => {
     if (noteId) {
       getNoteById(noteId).then((result) => setInput(result?.text ?? ""));
     }
   }, []);
+
+  const saveNoteHandler = () => {
+    saveNote(input, noteId);
+  };
   return (
     <>
       <TextInput
@@ -27,7 +30,7 @@ export const EditNotes = ({ saveNote, noteId }: Props): JSX.Element => {
       <Button
         title="Save"
         onPress={() => {
-          saveNote(input);
+          saveNoteHandler();
         }}
       ></Button>
     </>
