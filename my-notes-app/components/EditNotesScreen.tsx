@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: "lightgrey",
     width: "100%",
-    height: 200,
+    flex: 1,
     fontSize: 18,
     paddingTop: 30,
     paddingBottom: 20,
