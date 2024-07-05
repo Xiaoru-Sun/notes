@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { StyleSheet, Button, TextInput } from "react-native";
 import { useState } from "react";
 import { getNoteById, saveNote } from "../services/noteServices";
+import { useNavigation } from "@react-navigation/native";
+import { ScreenNavigationProp } from "../types";
+import { SaveNote } from "./SaveNote";
 
 type Props = {
   noteId: string | undefined;
@@ -9,15 +12,20 @@ type Props = {
 
 export const EditNotes = ({ noteId }: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
+  const navigation = useNavigation<ScreenNavigationProp>();
+
   useEffect(() => {
     if (noteId) {
       getNoteById(noteId).then((result) => setInput(result?.text ?? ""));
     }
   }, []);
 
-  const saveNoteHandler = () => {
-    saveNote(input, noteId);
-  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <SaveNote input={input} noteId={noteId}></SaveNote>,
+    });
+  }, [navigation, input]);
+
   return (
     <>
       <TextInput
@@ -27,21 +35,15 @@ export const EditNotes = ({ noteId }: Props): JSX.Element => {
         onChangeText={setInput}
         autoFocus={true}
       ></TextInput>
-      <Button
-        title="Save"
-        onPress={() => {
-          saveNoteHandler();
-        }}
-      ></Button>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: "lightgrey",
+    backgroundColor: "#ffb70342",
     width: "100%",
-    height: 200,
+    flex: 1,
     fontSize: 18,
     paddingTop: 30,
     paddingBottom: 20,
