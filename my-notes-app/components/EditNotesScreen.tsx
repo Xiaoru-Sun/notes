@@ -4,6 +4,7 @@ import { useState } from "react";
 import { getNoteById, saveNote } from "../services/noteServices";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenNavigationProp } from "../types";
+import { SaveNote } from "./SaveNote";
 
 type Props = {
   noteId: string | undefined;
@@ -13,11 +14,6 @@ export const EditNotes = ({ noteId }: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const saveNoteHandler = async () => {
-    await saveNote(input, noteId);
-    navigation.navigate("Home");
-  };
-
   useEffect(() => {
     if (noteId) {
       getNoteById(noteId).then((result) => setInput(result?.text ?? ""));
@@ -26,9 +22,7 @@ export const EditNotes = ({ noteId }: Props): JSX.Element => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <Button title="back" onPress={saveNoteHandler}></Button>
-      ),
+      headerLeft: () => <SaveNote input={input} noteId={noteId}></SaveNote>,
     });
   }, [navigation, input]);
 
